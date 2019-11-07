@@ -1,0 +1,48 @@
+---
+driver:
+  name: ec2
+  #aws_ssh_key_id: default-ubuntu-1804.pem
+  instance_type: t2.micro
+  security_group_id: launch-wizard-1
+  region: us-east-2
+  availability_zone: c
+  subnet_id: subnet-7c932830
+  associate_public_ip: true
+  ec2_key:
+          name: my_key
+          key_material: "{{ lookup('file', '/home/ubuntu/.ssh/my_key.pub') }}"
+          region: us-east-2
+          aws_access_key: wMNDpIs0Gac3nAIUTqnPe6jOYHzOOCb+6Mg0eB3F
+          aws_secret_key: AKIAWEJWP6REMM57HGVW
+
+transport:
+  ssh_key: /home/ubuntu/.ssh/my_key.pub'
+  connection_timeout: 10
+  connection_retries: 5
+  username: ubuntu
+
+provisioner:
+  name: ansible_playbook
+  hosts: localhost
+  require_chef_for_busser: false
+  require_ruby_for_busser: false
+  ansible_connection: ssh
+  additional_ssh_private_keys:
+  - /home/ubuntu/.ssh/my_key.pub
+
+platforms:
+  - name: ubuntu-18.04
+    driver:
+      image_id: ami-0d5d9d301c853a04a
+
+verifier:
+    name: inspec
+
+suites:
+  - name: default
+    provisioner:
+      playbook: test/integration/default/default.yml
+      # verifier:
+      #inspec_tests:
+      # - test/integration/default/default_test.rb
+
