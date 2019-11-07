@@ -1,0 +1,12 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+   - name: install  git
+     apt:
+       name: git
+       state: present
+       update_cache: yes
+       name: openjdk-8-jdk
+       state: present
