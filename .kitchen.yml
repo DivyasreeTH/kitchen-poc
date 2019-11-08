@@ -12,8 +12,6 @@ driver:
           name: my_key
           key_material: "{{ lookup('file', '/home/ubuntu/.ssh/my_key.pub') }}"
           region: us-east-2
-          aws_access_key: wMNDpIs0Gac3nAIUTqnPe6jOYHzOOCb+6Mg0eB3F
-          aws_secret_key: AKIAWEJWP6REMM57HGVW
 
 transport:
   ssh_key: /home/ubuntu/.ssh/my_key.pub'
